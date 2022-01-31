@@ -278,7 +278,7 @@ data "aws_iam_policy_document" "lb_controller_policy_doc" {
 
 # 2.retool-alb-ingress Controller Policy
 resource "aws_iam_policy" "lb_controller_policy" {
-  name        = "${local.retool_prefix}-alb-ingress"
+  name        = "${var.module_prefix}-alb-ingress"
   path        = "/"
   description = "Policy for alb-ingress service."
 
@@ -306,7 +306,7 @@ data "aws_iam_policy_document" "lb_controller_irsa_assume_role_policy_doc" {
 
 # 4. retool-alb-ingress IAM Role
 resource "aws_iam_role" "lb_controller_role" {
-  name               = "${local.retool_prefix}-alb-ingress"
+  name               = "${var.module_prefix}-alb-ingress"
   assume_role_policy = data.aws_iam_policy_document.lb_controller_irsa_assume_role_policy_doc.json
 }
 

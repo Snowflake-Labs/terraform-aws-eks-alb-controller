@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "external_dns_policy_doc" {
 
 # 2. external-dns IAM Role Policy
 resource "aws_iam_policy" "external_dns_policy" {
-  name        = "${local.retool_prefix}-external-dns"
+  name        = "${var.module_prefix}-external-dns"
   path        = "/"
   description = "Policy for external-dns service"
   policy      = data.aws_iam_policy_document.external_dns_policy_doc.json
@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "external_dns_irsa_assume_role_policy_doc" {
 
 # 4. external-dns IAM Role
 resource "aws_iam_role" "external_dns_role" {
-  name               = "${local.retool_prefix}-external-dns" # "${var.cluster_name}-external-dns"
+  name               = "${var.module_prefix}-external-dns" # "${var.cluster_name}-external-dns"
   assume_role_policy = data.aws_iam_policy_document.external_dns_irsa_assume_role_policy_doc.json
 }
 
