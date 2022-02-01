@@ -48,6 +48,23 @@ variable "node_group_instance_sizes" {
   default     = ["t3.xlarge"]
 }
 
+variable "vpc_id" {
+  description = "VPC ID where the EKS cluster will be created."
+  type        = string
+}
+
+variable "private_subnet_ids" {
+  description = "Private subnet IDs to add kubernetes cluster on."
+  type        = list(string)
+  default     = []
+}
+
+variable "public_subnet_ids" {
+  description = "Publlic subnet IDs to add kubernetes cluster on."
+  type        = list(string)
+  default     = []
+}
+
 locals {
   eks_cluster_name = "${var.module_prefix}-cluster"
 }
