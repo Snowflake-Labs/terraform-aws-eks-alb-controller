@@ -42,8 +42,8 @@ variable "external_dns_zone_type" {
   default     = ""
 }
 
-variable "node_group_instance_size" {
-  description = "external-dns Helm chart AWS DNS zone type (public, private or empty for both)."
+variable "node_group_instance_sizes" {
+  description = "Node group instance sizes as a list of strings."
   type        = list(string)
   default     = ["t3.xlarge"]
 }
