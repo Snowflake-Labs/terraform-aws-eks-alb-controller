@@ -33,7 +33,7 @@ module "eks" {
       max_size     = 5
       desired_size = 3
 
-      instance_types = [var.node_group_instance_sizes]
+      instance_types = var.node_group_instance_sizes
       capacity_type  = "ON_DEMAND"
       labels = {
         environment = "${var.env}"
