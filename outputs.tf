@@ -2,10 +2,6 @@ output "eks_cluster_id" {
   value = module.eks.cluster_id
 }
 
-output "eks_cluster_id" {
-  value = module.eks.eks_cluster_id
-}
-
 output "cluster_endpoint" {
   description = "Endpoint for EKS control plane."
   value       = module.eks.cluster_endpoint
