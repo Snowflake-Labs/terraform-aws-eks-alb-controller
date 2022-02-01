@@ -19,7 +19,7 @@ output "cluster_security_group_id" {
 
 output "node_security_group_id" {
   description = "Security group ids attached to the worker nodes of the cluster."
-  value       = module.eks.cluster_security_group_id
+  value       = module.eks.node_security_group_id
 }
 
 output "cluster_iam_role_name" {
