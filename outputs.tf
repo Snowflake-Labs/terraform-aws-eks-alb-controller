@@ -29,7 +29,7 @@ output "cluster_iam_role_name" {
 
 output "cluster_iam_role_arn" {
   description = "IAM role ARN of the EKS cluster."
-  value       = module.eks.cluster_iam_role_name
+  value       = module.eks.cluster_iam_role_arn
 }
 
 output "aws_auth_configmap_yaml" {
