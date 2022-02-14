@@ -5,11 +5,10 @@ module "eks" {
   cluster_name                         = local.eks_cluster_name
   cluster_version                      = var.kubernetes_version
   cluster_endpoint_private_access      = true
-  cluster_endpoint_public_access       = true
   cluster_endpoint_public_access_cidrs = var.allowed_cidr_blocks
 
   vpc_id      = var.vpc_id
-  subnet_ids  = concat(var.private_subnet_ids, var.public_subnet_ids)
+  subnet_ids  = var.private_subnet_ids
   enable_irsa = true
 
   cluster_enabled_log_types = [
