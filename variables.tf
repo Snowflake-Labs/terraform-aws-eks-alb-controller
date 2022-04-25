@@ -29,6 +29,16 @@ variable "hosted_zone_subdomain" {
   type        = string
 }
 
+variable "aws_public_hosted_zone" {
+  description = "Public Hosted zone subdomain."
+  type        = string
+}
+
+variable "aws_private_hosted_zone" {
+  description = "Private Hosted zone subdomain."
+  type        = string
+}
+
 # Optional
 variable "arn_format" {
   type        = string
