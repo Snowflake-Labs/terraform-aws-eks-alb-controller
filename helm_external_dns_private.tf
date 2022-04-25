@@ -1,5 +1,5 @@
 resource "helm_release" "external_dns_private" {
-  name       = "external-dns"
+  name       = "external-dns-private"
   chart      = "external-dns"
   repository = "https://charts.bitnami.com/bitnami"
   version    = "6.1.1"
