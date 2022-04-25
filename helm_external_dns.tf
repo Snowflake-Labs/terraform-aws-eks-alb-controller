@@ -12,7 +12,8 @@ resource "helm_release" "external_dns" {
       "${path.module}/templates/external_dns_values.yaml",
       {
         aws_region                       = "${var.aws_region}",
-        aws_zone_type                    = "${var.external_dns_zone_type}",
+        aws_zone_type                    = "public",
+        aws_public_hosted_zone           = "${var.aws_public_hosted_zone}"
         external_dns_eks_service_account = "external-dns",
         aws_iam_role_external_dns        = "${aws_iam_role.external_dns_role.name}",
         aws_iam_role_external_dns_arn    = "${aws_iam_role.external_dns_role.arn}",
