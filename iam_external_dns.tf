@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "external_dns_irsa_assume_role_policy_doc" {
     condition {
       test     = "StringEquals"
       variable = "${local.oidc_url}:sub"
-      values   = ["system:serviceaccount:kube-system:external-dns"]
+      values   = ["system:serviceaccount:kube-system:${aws_iam_role.external_dns_role.name}"]
     }
   }
 }
