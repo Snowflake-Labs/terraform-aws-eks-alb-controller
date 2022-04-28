@@ -9,7 +9,7 @@ resource "helm_release" "external_dns_private" {
 
   values = [
     templatefile(
-      "${path.module}/templates/external_dns_values.yaml",
+      "${path.module}/templates/external_dns_private_values.yaml",
       {
         aws_region                       = "${var.aws_region}",
         aws_zone_type                    = "private",
