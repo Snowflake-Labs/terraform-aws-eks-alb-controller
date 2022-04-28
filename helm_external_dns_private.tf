@@ -13,7 +13,7 @@ resource "helm_release" "external_dns_private" {
       {
         aws_region                       = "${var.aws_region}",
         aws_zone_type                    = "private",
-        aws_private_hosted_zone          = "${var.aws_private_hosted_zone}"
+        aws_private_hosted_zone          = "${var.aws_private_hosted_zone}",
         external_dns_eks_service_account = "external-dns-private",
         aws_iam_role_external_dns        = "${aws_iam_role.external_dns_private_role.name}",
         aws_iam_role_external_dns_arn    = "${aws_iam_role.external_dns_private_role.arn}",

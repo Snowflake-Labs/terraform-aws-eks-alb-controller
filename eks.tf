@@ -88,7 +88,7 @@ module "eks" {
     }
 
     egress_all = {
-      description      = "Node all egress"
+      description      = "Node to default all egress"
       protocol         = "-1"
       from_port        = 0
       to_port          = 0
