@@ -1,7 +1,7 @@
 provider: aws
 aws:
   region: ${aws_region}
-  zoneType: ${aws_zone_type}
+  zoneType: public
 sources:
   - service
   - ingress
@@ -15,5 +15,4 @@ serviceAccount:
   name: ${external_dns_eks_service_account}
   annotations:
     eks.amazonaws.com/role-arn: ${aws_iam_role_external_dns_arn}
-zoneIdFilters:
-  - ${aws_public_hosted_zone}
+zoneIdFilters: ["${aws_public_hosted_zone}"]
