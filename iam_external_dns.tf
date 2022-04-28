@@ -8,7 +8,7 @@ data "aws_iam_policy_document" "external_dns_policy_doc" {
     sid       = "ChangeResourceRecordSets"
     effect    = "Allow"
     actions   = ["route53:ChangeResourceRecordSets"]
-    resources = ["arn:aws:route53:::hostedzone/*"]
+    resources = ["arn:aws:route53:::hostedzone/${var.aws_public_hosted_zone}"]
   }
 
   statement {
@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "external_dns_irsa_assume_role_policy_doc" {
 
 # 4. external-dns IAM Role
 resource "aws_iam_role" "external_dns_role" {
-  name               = "${var.module_prefix}-external-dns" # "${var.cluster_name}-external-dns"
+  name               = "${var.module_prefix}-external-dns"
   assume_role_policy = data.aws_iam_policy_document.external_dns_irsa_assume_role_policy_doc.json
 }
 

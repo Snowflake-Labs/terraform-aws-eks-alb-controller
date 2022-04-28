@@ -41,14 +41,14 @@ data "aws_iam_policy_document" "external_dns_private_irsa_assume_role_policy_doc
     condition {
       test     = "StringEquals"
       variable = "${local.oidc_url}:sub"
-      values   = ["system:serviceaccount:kube-system:external-dns"]
+      values   = ["system:serviceaccount:kube-system:${var.module_prefix}-external-dns-private"]
     }
   }
 }
 
 # 4. external-dns IAM Role
 resource "aws_iam_role" "external_dns_private_role" {
-  name               = "${var.module_prefix}-external-dns-private" # "${var.cluster_name}-external-dns"
+  name               = "${var.module_prefix}-external-dns-private"
   assume_role_policy = data.aws_iam_policy_document.external_dns_private_irsa_assume_role_policy_doc.json
 }
 

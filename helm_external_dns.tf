@@ -2,7 +2,7 @@ resource "helm_release" "external_dns" {
   name       = "external-dns"
   chart      = "external-dns"
   repository = "https://charts.bitnami.com/bitnami"
-  version    = "6.3.0"
+  version    = "6.1.1"
 
   namespace = "kube-system"
   wait      = false
@@ -13,8 +13,8 @@ resource "helm_release" "external_dns" {
       {
         aws_region                       = "${var.aws_region}",
         aws_zone_type                    = "public",
-        aws_public_hosted_zone           = "${var.aws_public_hosted_zone}",
-        external_dns_eks_service_account = "external-dns",
+        aws_public_hosted_zone           = "${var.aws_public_hosted_zone}"
+        external_dns_eks_service_account = "${aws_iam_role.external_dns_role.name}",
         aws_iam_role_external_dns        = "${aws_iam_role.external_dns_role.name}",
         aws_iam_role_external_dns_arn    = "${aws_iam_role.external_dns_role.arn}",
       }
