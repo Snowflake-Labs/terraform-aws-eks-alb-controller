@@ -6,7 +6,11 @@ module "eks" {
   cluster_version                      = var.kubernetes_version
   cluster_endpoint_private_access      = true
   cluster_endpoint_public_access_cidrs = var.allowed_cidr_blocks
-  aws_auth_roles                       = var.eks_aws_auth_configmap_roles
+
+  # EKS aws-auth ConfigMap
+  manage_aws_auth_configmap = var.eks_aws_auth_configmap_enable
+  aws_auth_roles            = var.eks_aws_auth_configmap_roles
+  aws_auth_users            = var.eks_aws_auth_configmap_users
 
   vpc_id      = var.vpc_id
   subnet_ids  = var.private_subnet_ids
