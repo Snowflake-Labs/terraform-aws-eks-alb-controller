@@ -75,6 +75,12 @@ variable "public_subnet_ids" {
   default     = []
 }
 
+variable "eks_aws_auth_configmap_roles" {
+  description = "List of role maps to add to the EKS cluster aws-auth configmap"
+  type        = list(any)
+  default     = []
+}
+
 locals {
   eks_cluster_name = "${var.module_prefix}-cluster"
 }
