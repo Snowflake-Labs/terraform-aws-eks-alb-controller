@@ -75,6 +75,24 @@ variable "public_subnet_ids" {
   default     = []
 }
 
+variable "eks_aws_auth_configmap_enable" {
+  description = "Determines whether to manage the aws-auth configmap"
+  type        = bool
+  default     = false
+}
+
+variable "eks_aws_auth_configmap_roles" {
+  description = "List of role maps to add to the EKS cluster aws-auth configmap, require eks_aws_auth_configmap_enable to be true"
+  type        = list(any)
+  default     = []
+}
+
+variable "eks_aws_auth_configmap_users" {
+  description = "List of user maps to add to the EKS cluster aws-auth configmap, require eks_aws_auth_configmap_enable to be true"
+  type        = list(any)
+  default     = []
+}
+
 locals {
   eks_cluster_name = "${var.module_prefix}-cluster"
 }
