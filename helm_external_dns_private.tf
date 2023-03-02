@@ -1,5 +1,5 @@
 resource "helm_release" "external_dns_private" {
-  count      = var.aws_private_hosted_zone == true ? 1 : 0
+  count      = var.aws_private_hosted_zone == null ? 1 : 0
   name       = "external-dns-private"
   chart      = "external-dns"
   repository = "https://charts.bitnami.com/bitnami"
