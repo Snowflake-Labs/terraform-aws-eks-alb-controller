@@ -24,19 +24,22 @@ variable "module_prefix" {
   type        = string
 }
 
-variable "hosted_zone_subdomain" {
-  description = "Hosted zone subdomain."
-  type        = string
-}
+## Comment out as it's not being used in the module
+#variable "hosted_zone_subdomain" {
+#  description = "Hosted zone subdomain."
+#  type        = string
+#}
 
 variable "aws_public_hosted_zone" {
   description = "Public Hosted zone subdomain."
   type        = string
+  default     = null
 }
 
 variable "aws_private_hosted_zone" {
   description = "Private Hosted zone subdomain."
   type        = string
+  default     = null
 }
 
 # Optional
@@ -94,5 +97,7 @@ variable "eks_aws_auth_configmap_users" {
 }
 
 locals {
-  eks_cluster_name = "${var.module_prefix}-cluster"
+  eks_cluster_name        = "${var.module_prefix}-cluster"
+  aws_public_hosted_zone  = var.aws_public_hosted_zone == null ? false : var.aws_public_hosted_zone
+  aws_private_hosted_zone = var.aws_private_hosted_zone == null ? false : var.aws_private_hosted_zone
 }
