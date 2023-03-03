@@ -1,4 +1,5 @@
 resource "helm_release" "external_dns" {
+  count      = var.aws_public_hosted_zone == null ? 0 : 1
   name       = "external-dns"
   chart      = "external-dns"
   repository = "https://charts.bitnami.com/bitnami"
@@ -13,10 +14,10 @@ resource "helm_release" "external_dns" {
       {
         aws_region                       = "${var.aws_region}",
         aws_zone_type                    = "public",
-        aws_public_hosted_zone           = "${var.aws_public_hosted_zone}"
-        external_dns_eks_service_account = "${aws_iam_role.external_dns_role.name}",
-        aws_iam_role_external_dns        = "${aws_iam_role.external_dns_role.name}",
-        aws_iam_role_external_dns_arn    = "${aws_iam_role.external_dns_role.arn}",
+        aws_public_hosted_zone           = "${local.public_hosted_zone_id}"
+        external_dns_eks_service_account = "${aws_iam_role.external_dns_role[0].name}",
+        aws_iam_role_external_dns        = "${aws_iam_role.external_dns_role[0].name}",
+        aws_iam_role_external_dns_arn    = "${aws_iam_role.external_dns_role[0].arn}",
       }
     )
   ]
