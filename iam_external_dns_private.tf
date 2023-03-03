@@ -4,7 +4,7 @@ data "aws_iam_policy_document" "external_dns_private_policy_doc" {
     sid       = "ChangeResourceRecordSets"
     effect    = "Allow"
     actions   = ["route53:ChangeResourceRecordSets"]
-    resources = ["arn:aws:route53:::hostedzone/${local.private_dns_domain_name}"]
+    resources = ["arn:aws:route53:::hostedzone/${local.private_hosted_zone_id}"]
   }
 
   statement {
@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "external_dns_private_policy_doc" {
 
 # 2. external-dns IAM Role Policy
 resource "aws_iam_policy" "external_dns_private_policy" {
-  count       = var.aws_private_hosted_zone == null ? 1 : 0
+  count       = var.aws_private_hosted_zone == null ? 0 : 1
   name        = "${var.module_prefix}-external-dns-private"
   path        = "/"
   description = "Policy for external-dns service"
@@ -49,14 +49,14 @@ data "aws_iam_policy_document" "external_dns_private_irsa_assume_role_policy_doc
 
 # 4. external-dns IAM Role
 resource "aws_iam_role" "external_dns_private_role" {
-  count              = var.aws_private_hosted_zone == null ? 1 : 0
+  count              = var.aws_private_hosted_zone == null ? 0 : 1
   name               = "${var.module_prefix}-external-dns-private"
   assume_role_policy = data.aws_iam_policy_document.external_dns_private_irsa_assume_role_policy_doc.json
 }
 
 # 5. external-dns IAM Role Policy Attachment
 resource "aws_iam_role_policy_attachment" "external_dns_private_policy_attachment" {
-  count      = var.aws_private_hosted_zone == null ? 1 : 0
+  count      = var.aws_private_hosted_zone == null ? 0 : 1
   role       = aws_iam_role.external_dns_private_role[0].name
   policy_arn = aws_iam_policy.external_dns_private_policy[0].arn
 }

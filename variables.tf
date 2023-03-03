@@ -97,7 +97,7 @@ variable "eks_aws_auth_configmap_users" {
 }
 
 locals {
-  eks_cluster_name        = "${var.module_prefix}-cluster"
-  public_dns_domain_name  = var.aws_public_hosted_zone == null ? "" : var.aws_public_hosted_zone
-  private_dns_domain_name = var.aws_private_hosted_zone == null ? "" : var.aws_private_hosted_zone
+  eks_cluster_name       = "${var.module_prefix}-cluster"
+  public_hosted_zone_id  = var.aws_public_hosted_zone == null ? "" : var.aws_public_hosted_zone
+  private_hosted_zone_id = var.aws_private_hosted_zone == null ? "" : var.aws_private_hosted_zone
 }
