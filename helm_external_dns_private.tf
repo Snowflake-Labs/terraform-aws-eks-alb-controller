@@ -3,7 +3,7 @@ resource "helm_release" "external_dns_private" {
   name       = "external-dns-private"
   chart      = "external-dns"
   repository = "https://charts.bitnami.com/bitnami"
-  version    = "6.3.0"
+  version    = "6.14.1"
 
   namespace = "kube-system"
   wait      = false
