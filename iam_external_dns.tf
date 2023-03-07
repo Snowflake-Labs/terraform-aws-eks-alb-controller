@@ -8,7 +8,7 @@ data "aws_iam_policy_document" "external_dns_policy_doc" {
     sid       = "ChangeResourceRecordSets"
     effect    = "Allow"
     actions   = ["route53:ChangeResourceRecordSets"]
-    resources = ["arn:aws:route53:::hostedzone/${local.public_hosted_zone_id}"]
+    resources = ["arn:${var.arn_format}:route53:::hostedzone/${local.public_hosted_zone_id}"]
   }
 
   statement {
