@@ -18,6 +18,7 @@ resource "helm_release" "external_dns" {
         external_dns_eks_service_account = "${aws_iam_role.external_dns_role[0].name}",
         aws_iam_role_external_dns        = "${aws_iam_role.external_dns_role[0].name}",
         aws_iam_role_external_dns_arn    = "${aws_iam_role.external_dns_role[0].arn}",
+        eks_cluster_id                   = "${module.eks.cluster_id}",
       }
     )
   ]

@@ -17,3 +17,4 @@ serviceAccount:
     eks.amazonaws.com/role-arn: ${aws_iam_role_external_dns_arn}
 zoneIdFilters: ["${aws_private_hosted_zone}"]
 annotationFilter: "alb.ingress.kubernetes.io/scheme=internal"
+txtOwnerId: ${eks_cluster_id}
