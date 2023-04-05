@@ -5,6 +5,8 @@ resource "helm_release" "external_dns_private" {
   repository = "https://charts.bitnami.com/bitnami"
   version    = "6.14.1"
 
+  depends_on = [module.eks]
+
   namespace = "kube-system"
   wait      = false
 

@@ -4,6 +4,8 @@ resource "helm_release" "lb_controller" {
   repository = "https://aws.github.io/eks-charts"
   version    = "1.4.1"
 
+  depends_on = [module.eks]
+
   namespace = "kube-system"
   wait      = false
 
