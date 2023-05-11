@@ -36,11 +36,24 @@ variable "aws_public_hosted_zone" {
   default     = null
 }
 
+variable "aws_public_hosted_zone_type" {
+  description = "Public hosted zone type - public or private."
+  type        = string
+  default     = "public"
+}
+
 variable "aws_private_hosted_zone" {
   description = "Private Hosted zone subdomain."
   type        = string
   default     = null
 }
+
+variable "aws_private_hosted_zone_type" {
+  description = "Private hosted zone type - public or private."
+  type        = string
+  default     = "private"
+}
+
 
 # Optional
 variable "arn_format" {
