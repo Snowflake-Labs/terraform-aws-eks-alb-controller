@@ -1,7 +1,7 @@
 provider: aws
 aws:
   region: ${aws_region}
-  zoneType: public
+  zoneType: ${aws_zone_type}
 sources:
   - service
   - ingress
