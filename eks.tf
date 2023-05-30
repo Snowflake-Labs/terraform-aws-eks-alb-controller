@@ -54,8 +54,8 @@ module "eks" {
   }
 
   cluster_security_group_additional_rules = {
-    admin_access = {
-      description = "Admin ingress to Kubernetes API."
+    ingress_from_specified_cidrs = {
+      description = "Additional ingress traffic to cluster."
       cidr_blocks = var.allowed_cidr_blocks
       protocol    = "tcp"
       from_port   = 443
