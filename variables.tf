@@ -14,6 +14,11 @@ variable "allowed_cidr_blocks" {
   type        = list(string)
 }
 
+variable "allowed_management_cidr_blocks" {
+  description = ""
+  type        = list(string)
+}
+
 variable "env" {
   description = "Deployment environment."
   type        = string
