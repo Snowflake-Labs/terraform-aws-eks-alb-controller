@@ -5,7 +5,7 @@ module "eks" {
   cluster_name                         = local.eks_cluster_name
   cluster_version                      = var.kubernetes_version
   cluster_endpoint_private_access      = true
-  cluster_endpoint_public_access_cidrs = var.allowed_cidr_blocks
+  cluster_endpoint_public_access_cidrs = var.allowed_management_cidr_blocks
 
   # EKS aws-auth ConfigMap
   manage_aws_auth_configmap = var.eks_aws_auth_configmap_enable
@@ -54,8 +54,8 @@ module "eks" {
   }
 
   cluster_security_group_additional_rules = {
-    admin_access = {
-      description = "Admin ingress to Kubernetes API."
+    ingress_from_specified_cidrs = {
+      description = "Additional ingress traffic to cluster."
       cidr_blocks = var.allowed_cidr_blocks
       protocol    = "tcp"
       from_port   = 443
