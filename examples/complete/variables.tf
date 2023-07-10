@@ -5,18 +5,43 @@ variable "aws_region" {
 }
 
 variable "kubernetes_version" {
-  description = "The version of the EKS cluster to create."
+  description = "The version of the EKS cluster to create for sentry."
   type        = string
 }
 
 variable "allowed_cidr_blocks" {
   description = "List of cidr to allow inbound traffic to the EKS cluster."
   type        = list(string)
+  default     = null
 }
 
 variable "allowed_management_cidr_blocks" {
   description = "List of cidr to allow inbound traffic to the EKS management API."
   type        = list(string)
+  default     = null
+}
+
+variable "vpc_id" {
+  description = "VPC ID where the EKS cluster will be created."
+  type        = string
+}
+
+variable "private_subnet_ids" {
+  description = "Private subnet IDs to add kubernetes cluster on."
+  type        = list(string)
+  default     = []
+}
+
+variable "aws_public_hosted_zone" {
+  description = "Public Route53 hosted zone domain."
+  type        = string
+  default     = null
+}
+
+variable "aws_private_hosted_zone" {
+  description = "Private Route53 hosted zone subdomain."
+  type        = string
+  default     = null
 }
 
 variable "env" {
@@ -29,11 +54,10 @@ variable "module_prefix" {
   type        = string
 }
 
-variable "vpc_id" {
-  description = "VPC ID where the EKS cluster will be created."
+variable "hosted_zone_subdomain" {
+  description = "Hosted zone subdomain."
   type        = string
 }
-
 
 # Optional
 variable "arn_format" {
@@ -42,34 +66,10 @@ variable "arn_format" {
   description = "ARNs identifier, useful for GovCloud begin with `aws-us-gov-<region>`."
 }
 
-variable "aws_public_hosted_zone" {
-  description = "Public Hosted zone subdomain."
-  type        = string
-  default     = null
-}
-
-variable "aws_private_hosted_zone" {
-  description = "Private Hosted zone subdomain."
-  type        = string
-  default     = null
-}
-
 variable "node_group_instance_sizes" {
   description = "Node group instance sizes as a list of strings."
   type        = list(string)
   default     = ["t3.xlarge"]
-}
-
-variable "private_subnet_ids" {
-  description = "Private subnet IDs to add kubernetes cluster on."
-  type        = list(string)
-  default     = []
-}
-
-variable "public_subnet_ids" {
-  description = "Publlic subnet IDs to add kubernetes cluster on."
-  type        = list(string)
-  default     = []
 }
 
 variable "eks_aws_auth_configmap_enable" {
@@ -91,7 +91,5 @@ variable "eks_aws_auth_configmap_users" {
 }
 
 locals {
-  eks_cluster_name       = "${var.module_prefix}-cluster"
-  public_hosted_zone_id  = var.aws_public_hosted_zone == null ? "" : var.aws_public_hosted_zone
-  private_hosted_zone_id = var.aws_private_hosted_zone == null ? "" : var.aws_private_hosted_zone
+  eks_cluster_name = "${var.module_prefix}-cluster"
 }

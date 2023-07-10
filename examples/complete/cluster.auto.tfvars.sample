@@ -1,0 +1,27 @@
+aws_region         = "us-west-2"
+kubernetes_version = "1.21"
+
+arn_format            = "aws"
+env                   = "dev"
+module_prefix         = "blue"
+
+vpc_id                = "vpc-XXXXX"
+private_subnet_ids    = ["subnet-XXXXX", "subnet-XXXXX"]
+
+allowed_cidr_blocks            = ["IP CIDR BLOCK"]
+allowed_management_cidr_blocks = ["IP CIDR BLOCK"]
+
+hosted_zone_subdomain   = "kubenetes.example.com"
+aws_public_hosted_zone  = "ROUTE53 PUBLIC HOSTED ZONE ID"
+aws_private_hosted_zone = "ROUTE53 PRIVATE HOSTED ZONE ID"
+
+node_group_instance_sizes = ["t3.xlarge"]
+
+eks_aws_auth_configmap_enable = true
+eks_aws_auth_configmap_roles  = [
+  {
+    rolearn  = "arn:aws:iam::XXXXX:role/eks-cluster-admin"
+    username = "cluster-admin"
+    groups   = ["system:masters"]
+  }
+]
