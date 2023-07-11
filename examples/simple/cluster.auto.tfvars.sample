@@ -9,14 +9,3 @@ private_subnet_ids = ["subnet-XXXXX", "subnet-XXXXX"]
 
 hosted_zone_subdomain   = "kubenetes.example.com"
 aws_private_hosted_zone = "ROUTE53 PRIVATE HOSTED ZONE ID"
-
-node_group_instance_sizes = ["t3.xlarge"]
-
-eks_aws_auth_configmap_enable = true
-eks_aws_auth_configmap_roles  = [
-  {
-    rolearn  = "arn:aws:iam::XXXXX:role/eks-cluster-admin"
-    username = "cluster-admin"
-    groups   = ["system:masters"]
-  }
-]

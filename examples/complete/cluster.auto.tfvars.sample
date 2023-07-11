@@ -1,7 +1,6 @@
 aws_region         = "us-west-2"
 kubernetes_version = "1.21"
 
-arn_format            = "aws"
 env                   = "dev"
 module_prefix         = "blue"
 

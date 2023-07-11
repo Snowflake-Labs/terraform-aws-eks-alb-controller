@@ -9,16 +9,6 @@ variable "kubernetes_version" {
   type        = string
 }
 
-variable "allowed_cidr_blocks" {
-  description = "List of cidr to allow inbound traffic to the EKS cluster."
-  type        = list(string)
-}
-
-variable "allowed_management_cidr_blocks" {
-  description = "List of cidr to allow inbound traffic to the EKS management API."
-  type        = list(string)
-}
-
 variable "env" {
   description = "Deployment environment."
   type        = string
@@ -68,6 +58,18 @@ variable "private_subnet_ids" {
 
 variable "public_subnet_ids" {
   description = "Publlic subnet IDs to add kubernetes cluster on."
+  type        = list(string)
+  default     = []
+}
+
+variable "allowed_cidr_blocks" {
+  description = "List of cidr to allow inbound traffic to the EKS cluster."
+  type        = list(string)
+  default     = []
+}
+
+variable "allowed_management_cidr_blocks" {
+  description = "List of cidr to allow inbound traffic to the EKS management API."
   type        = list(string)
   default     = []
 }
