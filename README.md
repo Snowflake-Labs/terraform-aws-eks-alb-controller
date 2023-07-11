@@ -1,2 +1,2 @@
 # terraform-aws-eks-cluster
-Terraform AWS EKS cluster with eks managed node groups, security groups, ALB controller and external DNS using IRSA
+Terraform module to create AWS EKS cluster with EKS managed node groups, security groups, ALB controller and external DNS.  The module enable IAM Roles for Service Accounts (IRSA) on the EKS cluster.

@@ -1,0 +1,11 @@
+aws_region         = "us-west-2"
+kubernetes_version = "1.21"
+
+env                   = "dev"
+module_prefix         = "blue"
+
+vpc_id             = "vpc-XXXXX"
+private_subnet_ids = ["subnet-XXXXX", "subnet-XXXXX"]
+
+hosted_zone_subdomain   = "kubenetes.example.com"
+aws_private_hosted_zone = "ROUTE53 PRIVATE HOSTED ZONE ID"
