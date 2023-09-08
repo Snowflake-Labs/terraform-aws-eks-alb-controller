@@ -16,29 +16,29 @@ data "aws_iam_policy_document" "lb_controller_policy_doc" {
   statement {
     effect = "Allow"
     actions = [
-      "ec2:DescribeAccountAttributes",
-      "ec2:DescribeAddresses",
-      "ec2:DescribeAvailabilityZones",
-      "ec2:DescribeInternetGateways",
-      "ec2:DescribeVpcs",
-      "ec2:DescribeVpcPeeringConnections",
-      "ec2:DescribeSubnets",
-      "ec2:DescribeSecurityGroups",
-      "ec2:DescribeInstances",
-      "ec2:DescribeNetworkInterfaces",
-      "ec2:DescribeTags",
-      "ec2:GetCoipPoolUsage",
-      "ec2:DescribeCoipPools",
-      "elasticloadbalancing:DescribeLoadBalancers",
-      "elasticloadbalancing:DescribeLoadBalancerAttributes",
-      "elasticloadbalancing:DescribeListeners",
-      "elasticloadbalancing:DescribeListenerCertificates",
-      "elasticloadbalancing:DescribeSSLPolicies",
-      "elasticloadbalancing:DescribeRules",
-      "elasticloadbalancing:DescribeTargetGroups",
-      "elasticloadbalancing:DescribeTargetGroupAttributes",
-      "elasticloadbalancing:DescribeTargetHealth",
-      "elasticloadbalancing:DescribeTags"
+        "ec2:DescribeAccountAttributes",
+        "ec2:DescribeAddresses",
+        "ec2:DescribeAvailabilityZones",
+        "ec2:DescribeInternetGateways",
+        "ec2:DescribeVpcs",
+        "ec2:DescribeVpcPeeringConnections",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeInstances",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DescribeTags",
+        "ec2:GetCoipPoolUsage",
+        "ec2:DescribeCoipPools",
+        "elasticloadbalancing:DescribeLoadBalancers",
+        "elasticloadbalancing:DescribeLoadBalancerAttributes",
+        "elasticloadbalancing:DescribeListeners",
+        "elasticloadbalancing:DescribeListenerCertificates",
+        "elasticloadbalancing:DescribeSSLPolicies",
+        "elasticloadbalancing:DescribeRules",
+        "elasticloadbalancing:DescribeTargetGroups",
+        "elasticloadbalancing:DescribeTargetGroupAttributes",
+        "elasticloadbalancing:DescribeTargetHealth",
+        "elasticloadbalancing:DescribeTags",
     ]
     resources = ["*"]
   }
@@ -46,23 +46,23 @@ data "aws_iam_policy_document" "lb_controller_policy_doc" {
   statement {
     effect = "Allow"
     actions = [
-      "cognito-idp:DescribeUserPoolClient",
-      "acm:ListCertificates",
-      "acm:DescribeCertificate",
-      "iam:ListServerCertificates",
-      "iam:GetServerCertificate",
-      "waf-regional:GetWebACL",
-      "waf-regional:GetWebACLForResource",
-      "waf-regional:AssociateWebACL",
-      "waf-regional:DisassociateWebACL",
-      "wafv2:GetWebACL",
-      "wafv2:GetWebACLForResource",
-      "wafv2:AssociateWebACL",
-      "wafv2:DisassociateWebACL",
-      "shield:GetSubscriptionState",
-      "shield:DescribeProtection",
-      "shield:CreateProtection",
-      "shield:DeleteProtection"
+        "cognito-idp:DescribeUserPoolClient",
+        "acm:ListCertificates",
+        "acm:DescribeCertificate",
+        "iam:ListServerCertificates",
+        "iam:GetServerCertificate",
+        "waf-regional:GetWebACL",
+        "waf-regional:GetWebACLForResource",
+        "waf-regional:AssociateWebACL",
+        "waf-regional:DisassociateWebACL",
+        "wafv2:GetWebACL",
+        "wafv2:GetWebACLForResource",
+        "wafv2:AssociateWebACL",
+        "wafv2:DisassociateWebACL",
+        "shield:GetSubscriptionState",
+        "shield:DescribeProtection",
+        "shield:CreateProtection",
+        "shield:DeleteProtection",
     ]
     resources = ["*"]
   }
@@ -195,7 +195,7 @@ data "aws_iam_policy_document" "lb_controller_policy_doc" {
       test     = "Null"
       variable = "aws:RequestTag/elbv2.k8s.aws/cluster"
 
-      values = ["false"]
+      values = ["true"]
     }
 
     condition {
@@ -220,6 +220,33 @@ data "aws_iam_policy_document" "lb_controller_policy_doc" {
     ]
     effect = "Allow"
   }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "elasticloadbalancing:AddTags",
+    ]
+    resources = [
+        "arn:${var.arn_format}:elasticloadbalancing:*:*:targetgroup/*/*",
+        "arn:${var.arn_format}:elasticloadbalancing:*:*:loadbalancer/net/*/*",
+        "arn:${var.arn_format}:elasticloadbalancing:*:*:loadbalancer/app/*/*",
+    ]
+    condition {
+        test     = "StringEquals"
+        variable = "elasticloadbalancing:CreateAction"
+        values   = [
+            "CreateTargetGroup",
+            "CreateLoadBalancer",
+        ]
+    }
+
+    condition {
+      test     = "Null"
+      variable = "aws:RequestTag/elbv2.k8s.aws/cluster"
+      values   = ["false"]
+    }
+  }
+
 
   statement {
     actions = [
