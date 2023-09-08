@@ -19,13 +19,8 @@ variable "module_prefix" {
   type        = string
 }
 
-<<<<<<< Updated upstream
 variable "vpc_id" {
   description = "VPC ID where the EKS cluster will be created."
-=======
-variable "aws_public_hosted_zone" {
-  description = "Public Hosted zone subdomain."
->>>>>>> Stashed changes
   type        = string
 }
 
