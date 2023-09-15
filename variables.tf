@@ -92,6 +92,12 @@ variable "eks_aws_auth_configmap_users" {
   default     = []
 }
 
+variable "create_logs_bucket" {
+  description = "Flag to create an S3 bucket or not."
+  type        = bool
+  default     = false
+}
+
 locals {
   eks_cluster_name       = "${var.module_prefix}-cluster"
   public_hosted_zone_id  = var.aws_public_hosted_zone == null ? "" : var.aws_public_hosted_zone

@@ -301,6 +301,20 @@ data "aws_iam_policy_document" "lb_controller_policy_doc" {
     effect = "Allow"
   }
 
+  dynamic "statement" {
+    for_each = var.create_logs_bucket == true ? [1] : []
+
+    content {
+        effect = "Allow"
+        actions = [
+            "s3:PutObject",
+            "s3:GetObject",
+            "s3:ListBucket",
+            "s3:DeleteObject"
+        ]
+        resources = [aws_s3_bucket.aws_s3_bucket.logs_bucket.arn]
+    }
+  }
 }
 
 # 2.retool-alb-ingress Controller Policy
