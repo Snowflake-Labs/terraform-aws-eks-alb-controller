@@ -44,5 +44,5 @@ output "eks_managed_node_groups" {
 
 output "cluster_logs_bucket" {
   description = "Bucket for cluster logs."
-  value       = aws_s3_bucket.logs_bucket[0].id
+  value       = var.create_logs_bucket == true ? aws_s3_bucket.logs_bucket[0].id : null
 }
