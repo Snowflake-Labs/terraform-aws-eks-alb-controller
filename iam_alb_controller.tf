@@ -315,6 +315,10 @@ data "aws_iam_policy_document" "lb_controller_policy_doc" {
         resources = [aws_s3_bucket.aws_s3_bucket.logs_bucket[0].arn]
     }
   }
+
+  depends_on = [
+    aws_s3_bucket.aws_s3_bucket.logs_bucket[0]
+  ]
 }
 
 # 2.retool-alb-ingress Controller Policy
