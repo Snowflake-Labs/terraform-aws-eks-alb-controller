@@ -307,17 +307,14 @@ data "aws_iam_policy_document" "lb_controller_policy_doc" {
     content {
         effect = "Allow"
         actions = [
-            "s3:PutObject",
-            "s3:GetObject",
-            "s3:ListBucket",
-            "s3:DeleteObject"
+            "s3:PutObject"
         ]
         resources = [aws_s3_bucket.logs_bucket[0].arn]
     }
   }
 }
 
-# 2.retool-alb-ingress Controller Policy
+# 2. LB Controller Policy
 resource "aws_iam_policy" "lb_controller_policy" {
   name        = "${var.module_prefix}-alb-ingress"
   path        = "/"
@@ -326,7 +323,7 @@ resource "aws_iam_policy" "lb_controller_policy" {
   policy = data.aws_iam_policy_document.lb_controller_policy_doc.json
 }
 
-# 3. retool-alb-ingress Assume Role Policy Document
+# 3. LB Controller Policy Document
 data "aws_iam_policy_document" "lb_controller_irsa_assume_role_policy_doc" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -345,13 +342,13 @@ data "aws_iam_policy_document" "lb_controller_irsa_assume_role_policy_doc" {
   }
 }
 
-# 4. retool-alb-ingress IAM Role
+# 4. LB Controller IAM Role
 resource "aws_iam_role" "lb_controller_role" {
   name               = "${var.module_prefix}-alb-ingress"
   assume_role_policy = data.aws_iam_policy_document.lb_controller_irsa_assume_role_policy_doc.json
 }
 
-# 5. external-dns IAM Role Policy Attachment
+# 5. LB Controller IAM Role Policy Attachment
 resource "aws_iam_role_policy_attachment" "lb_controller" {
   role       = aws_iam_role.lb_controller_role.name
   policy_arn = aws_iam_policy.lb_controller_policy.arn
