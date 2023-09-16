@@ -35,8 +35,24 @@ data "aws_iam_policy_document" "allow_access_from_eks" {
     }
 
     actions = [
-      "s3:PutObject",
+        "s3:ListBucket"        
     ]
     resources = [aws_s3_bucket.logs_bucket[0].arn]
+  }
+
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.lb_controller_role.arn]
+    }
+
+    actions = [
+        "s3:GetObject", 
+        "s3:PutObject"
+    ]
+    resources = [
+        "${aws_s3_bucket.logs_bucket[0].arn}/*"
+    ]
   }
 }
