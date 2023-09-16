@@ -300,18 +300,6 @@ data "aws_iam_policy_document" "lb_controller_policy_doc" {
     ]
     effect = "Allow"
   }
-
-  dynamic "statement" {
-    for_each = var.create_logs_bucket == true ? [1] : []
-
-    content {
-        effect = "Allow"
-        actions = [
-            "s3:PutObject"
-        ]
-        resources = [aws_s3_bucket.logs_bucket[0].arn]
-    }
-  }
 }
 
 # 2. LB Controller Policy
