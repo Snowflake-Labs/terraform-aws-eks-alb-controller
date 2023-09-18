@@ -327,12 +327,6 @@ data "aws_iam_policy_document" "lb_controller_irsa_assume_role_policy_doc" {
       variable = "${local.oidc_url}:sub"
       values   = ["system:serviceaccount:kube-system:aws-alb-ingress-controller"]
     }
-
-    condition {
-      test     = "StringEquals"
-      variable = "${local.oidc_url}:aud"
-      values   = ["sts.amazonaws.com"]
-    }
   }
 }
 

@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "allow_access_from_eks" {
         "s3:PutObject"
     ]
     resources = [
-        "${aws_s3_bucket.logs_bucket[0].arn}"
+        "${aws_s3_bucket.logs_bucket[0].arn}/*"
     ]
   }
 }
