@@ -29,26 +29,13 @@ resource "aws_s3_bucket_policy" "allow_access_from_eks" {
 data "aws_iam_policy_document" "allow_access_from_eks" {
   statement {
     effect = "Allow"
+
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_role.lb_controller_role.arn]
+      identifiers = ["arn:aws:iam::${var.load_balancer_account_id}:root"]
     }
 
     actions = [
-        "s3:ListBucket"        
-    ]
-    resources = [aws_s3_bucket.logs_bucket[0].arn]
-  }
-
-  statement {
-    effect = "Allow"
-    principals {
-      type        = "AWS"
-      identifiers = [aws_iam_role.lb_controller_role.arn]
-    }
-
-    actions = [
-        "s3:GetObject", 
         "s3:PutObject"
     ]
     resources = [

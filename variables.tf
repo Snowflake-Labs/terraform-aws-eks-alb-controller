@@ -98,6 +98,16 @@ variable "create_logs_bucket" {
   default     = false
 }
 
+variable "load_balancer_account_id" {
+  description = <<EOF
+Load Balancer account ID for the given region you deployed your load balancer in based on this list:
+https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#attach-bucket-policy.
+EOF
+  type        = bool
+  default     = false
+}
+
+
 locals {
   eks_cluster_name       = "${var.module_prefix}-cluster"
   public_hosted_zone_id  = var.aws_public_hosted_zone == null ? "" : var.aws_public_hosted_zone
