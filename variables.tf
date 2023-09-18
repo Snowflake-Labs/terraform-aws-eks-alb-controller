@@ -103,10 +103,9 @@ variable "load_balancer_account_id" {
 Load Balancer account ID for the given region you deployed your load balancer in based on this list:
 https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#attach-bucket-policy.
 EOF
-  type        = bool
-  default     = false
+  type        = string
+  default     = "797873946194"
 }
-
 
 locals {
   eks_cluster_name       = "${var.module_prefix}-cluster"
