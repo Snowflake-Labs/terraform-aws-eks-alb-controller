@@ -22,11 +22,15 @@ resource "aws_s3_bucket_acl" "logs_bucket_acl" {
 }
 
 resource "aws_s3_bucket_policy" "allow_access_from_eks" {
+  count = var.create_logs_bucket == true ? 1 : 0
+
   bucket = aws_s3_bucket.logs_bucket[0].id
   policy = data.aws_iam_policy_document.allow_access_from_eks.json
 }
 
 data "aws_iam_policy_document" "allow_access_from_eks" {
+  count = var.create_logs_bucket == true ? 1 : 0
+
   statement {
     effect = "Allow"
 
