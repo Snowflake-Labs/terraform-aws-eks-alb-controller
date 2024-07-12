@@ -46,3 +46,17 @@ output "cluster_logs_bucket" {
   description = "Bucket for cluster logs."
   value       = var.create_logs_bucket == true ? aws_s3_bucket.logs_bucket[0].id : null
 }
+
+################################################################################
+# IRSA
+################################################################################
+
+output "oidc_url" {
+  description = "The OpenID Connect identity provider (issuer URL without leading `https://`)"
+  value       = module.eks.oidc_provider
+}
+
+output "oidc_provider_arn" {
+  description = "The ARN of the OIDC Provider if `enable_irsa = true`"
+  value       = module.eks.oidc_provider_arn
+}
