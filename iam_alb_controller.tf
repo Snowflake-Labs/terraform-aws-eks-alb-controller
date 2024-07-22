@@ -293,7 +293,8 @@ data "aws_iam_policy_document" "lb_controller_policy_doc" {
       "elasticloadbalancing:ModifyListener",
       "elasticloadbalancing:AddListenerCertificates",
       "elasticloadbalancing:RemoveListenerCertificates",
-      "elasticloadbalancing:ModifyRule"
+      "elasticloadbalancing:ModifyRule",
+      "elasticloadbalancing:AddTags"
     ]
     resources = [
       "*"
