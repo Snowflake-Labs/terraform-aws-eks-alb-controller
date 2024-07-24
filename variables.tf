@@ -107,6 +107,12 @@ EOF
   default     = "797873946194"
 }
 
+variable "addon_ebs_csi_driver" {
+  description = "Install Amazon EBS CSI driver add-on. Require for EKS cluster version 1.23 and above. For content, refer to 'aws_eks_addon' Terraform resource."
+  type        = map(string)
+  default     = {}
+}
+
 locals {
   eks_cluster_name       = "${var.module_prefix}-cluster"
   public_hosted_zone_id  = var.aws_public_hosted_zone == null ? "" : var.aws_public_hosted_zone
