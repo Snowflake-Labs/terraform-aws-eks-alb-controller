@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "ebs_csi_driver_irsa_assume_role_policy_doc" {
 resource "aws_iam_role" "ebs_csi_driver_irsa_role" {
   count = length(var.addon_ebs_csi_driver) == 0 ? 0 : 1
 
-  name               = "${var.module_prefix}-ebs-csi-driver-irsa"
+  name               = "${local.eks_cluster_name}-ebs-csi-driver-irsa"
   assume_role_policy = data.aws_iam_policy_document.ebs_csi_driver_irsa_assume_role_policy_doc[0].json
 }
 
