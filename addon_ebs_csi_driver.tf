@@ -15,6 +15,12 @@ data "aws_iam_policy_document" "ebs_csi_driver_irsa_assume_role_policy_doc" {
       variable = "${local.oidc_url}:sub"
       values   = ["system:serviceaccount:kube-system:ebs-csi-controller-sa"]
     }
+
+    condition {
+      test     = "StringEquals"
+      variable = "${local.oidc_url}:aud"
+      values   = ["sts.amazonaws.com"]
+    }
   }
 }
 
