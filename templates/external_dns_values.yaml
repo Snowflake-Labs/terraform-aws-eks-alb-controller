@@ -9,7 +9,6 @@ logFormat: json
 policy: sync
 rbac:
   create: true
-  pspEnabled: false
 serviceAccount:
   create: true
   name: ${external_dns_eks_service_account}
