@@ -120,6 +120,12 @@ variable "cluster_iam_role_dns_suffix" {
   default     = null
 }
 
+variable "custom_image_registries" {
+  description = "A map of custom image registry to overwrite the default docker.io registry. Example: { external-dns = \"public.ecr.aws\" }"
+  type        = map(string)
+  default     = {}
+}
+
 
 locals {
   eks_cluster_name       = "${var.module_prefix}-cluster"
