@@ -18,3 +18,8 @@ serviceAccount:
 zoneIdFilters: ["${aws_private_hosted_zone}"]
 annotationFilter: "alb.ingress.kubernetes.io/scheme=internal"
 txtOwnerId: ${eks_cluster_id}
+
+%{ if image_registry != "" }
+image:
+  registry: public.ecr.aws
+%{ endif }

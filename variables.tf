@@ -113,6 +113,20 @@ variable "addon_ebs_csi_driver" {
   default     = {}
 }
 
+# https://github.com/terraform-aws-modules/terraform-aws-eks/issues/1904
+variable "cluster_iam_role_dns_suffix" {
+  description = "Base DNS domain name for the current partition (e.g., amazonaws.com in AWS Commercial, amazonaws.com.cn in AWS China)"
+  type        = string
+  default     = null
+}
+
+variable "custom_image_registries" {
+  description = "A map of custom image registry to overwrite the default docker.io registry. Example: { external-dns = \"public.ecr.aws\" }"
+  type        = map(string)
+  default     = {}
+}
+
+
 locals {
   eks_cluster_name       = "${var.module_prefix}-cluster"
   public_hosted_zone_id  = var.aws_public_hosted_zone == null ? "" : var.aws_public_hosted_zone

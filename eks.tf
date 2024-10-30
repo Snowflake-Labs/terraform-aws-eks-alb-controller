@@ -1,11 +1,12 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "18.20.5"
+  version = "18.31.2"
 
   cluster_name                         = local.eks_cluster_name
   cluster_version                      = var.kubernetes_version
   cluster_endpoint_private_access      = true
   cluster_endpoint_public_access_cidrs = var.allowed_management_cidr_blocks
+  cluster_iam_role_dns_suffix          = var.cluster_iam_role_dns_suffix
 
   # EKS aws-auth ConfigMap
   manage_aws_auth_configmap = var.eks_aws_auth_configmap_enable
@@ -45,10 +46,6 @@ module "eks" {
 
       update_config = {
         max_unavailable_percentage = 80 # or set `max_unavailable`
-      }
-
-      tags = {
-        environment = "${var.env}"
       }
     }
   }
