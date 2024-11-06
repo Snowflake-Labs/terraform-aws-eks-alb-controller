@@ -120,9 +120,19 @@ variable "cluster_iam_role_dns_suffix" {
   default     = null
 }
 
-variable "custom_image_registries" {
-  description = "A map of custom image registry to overwrite the default docker.io registry. Example: { external-dns = \"public.ecr.aws\" }"
-  type        = map(string)
+variable "overwrite_image_variables" {
+  description = "A map of objects containing key-value pairs to overwrite the default image variables - registry, repository and tag. Each key-value is optional. The default value is used if omit."
+
+  # Example:
+  # custom_container_images = {
+  #   external-dns = {
+  #     registry   = "public.ecr.aws"
+  #     repository = "external-dns"
+  #     tag        = "0.15.0-debian-12-r2"
+  #   }
+  # }
+
+  type        = map(any)
   default     = {}
 }
 
