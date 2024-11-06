@@ -19,7 +19,13 @@ zoneIdFilters: ["${aws_public_hosted_zone}"]
 annotationFilter: "alb.ingress.kubernetes.io/scheme=internet-facing"
 txtOwnerId: ${eks_cluster_id}
 
-%{ if image_registry != "" }
 image:
+%{ if image_registry != null ~}
   registry: ${image_registry}
-%{ endif }
+%{ endif ~}
+%{ if image_repository != null ~}
+  repository: ${image_repository}
+%{ endif ~}
+%{ if image_tag != null ~}
+  tag: ${image_tag}
+%{ endif ~}
