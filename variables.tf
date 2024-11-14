@@ -92,6 +92,20 @@ variable "eks_aws_auth_configmap_users" {
   default     = []
 }
 
+variable "eks_managed_node_groups_options" {
+  description = "An object variable containing key-value pairs for the eks_managed_node_groups parameters."
+  type = object({
+    min_size     = number
+    max_size     = number
+    desired_size = number
+  })
+  default = {
+    min_size     = 3
+    max_size     = 5
+    desired_size = 3
+  }
+}
+
 variable "create_logs_bucket" {
   description = "Flag to create an S3 bucket or not."
   type        = bool

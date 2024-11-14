@@ -34,9 +34,9 @@ module "eks" {
 
   eks_managed_node_groups = {
     node-group-1 = {
-      min_size     = 3
-      max_size     = 5
-      desired_size = 3
+      min_size     = var.eks_managed_node_groups_options.min_size
+      max_size     = var.eks_managed_node_groups_options.max_size
+      desired_size = var.eks_managed_node_groups_options.desired_size
 
       instance_types = var.node_group_instance_sizes
       capacity_type  = "ON_DEMAND"
