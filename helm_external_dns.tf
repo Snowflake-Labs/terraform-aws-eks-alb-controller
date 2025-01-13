@@ -3,7 +3,7 @@ resource "helm_release" "external_dns" {
   name       = "external-dns"
   chart      = "external-dns"
   repository = "https://charts.bitnami.com/bitnami"
-  version    = "8.3.9"
+  version    = "8.3.4"
 
   namespace = "kube-system"
   wait      = false
@@ -19,9 +19,6 @@ resource "helm_release" "external_dns" {
         aws_iam_role_external_dns        = "${aws_iam_role.external_dns_role[0].name}",
         aws_iam_role_external_dns_arn    = "${aws_iam_role.external_dns_role[0].arn}",
         eks_cluster_id                   = "${module.eks.cluster_id}",
-        image_registry                   = "${try(var.overwrite_image_variables["external-dns"]["registry"], null)}",
-        image_repository                 = "${try(var.overwrite_image_variables["external-dns"]["repository"], null)}",
-        image_tag                        = "${try(var.overwrite_image_variables["external-dns"]["tag"], null)}",
       }
     )
   ]

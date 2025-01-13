@@ -1,12 +1,11 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "18.31.2"
+  version = "18.20.5"
 
   cluster_name                         = local.eks_cluster_name
   cluster_version                      = var.kubernetes_version
   cluster_endpoint_private_access      = true
   cluster_endpoint_public_access_cidrs = var.allowed_management_cidr_blocks
-  cluster_iam_role_dns_suffix          = var.cluster_iam_role_dns_suffix
 
   # EKS aws-auth ConfigMap
   manage_aws_auth_configmap = var.eks_aws_auth_configmap_enable
@@ -34,9 +33,9 @@ module "eks" {
 
   eks_managed_node_groups = {
     node-group-1 = {
-      min_size     = var.eks_managed_node_groups_options.min_size
-      max_size     = var.eks_managed_node_groups_options.max_size
-      desired_size = var.eks_managed_node_groups_options.desired_size
+      min_size     = 3
+      max_size     = 5
+      desired_size = 3
 
       instance_types = var.node_group_instance_sizes
       capacity_type  = "ON_DEMAND"
@@ -46,6 +45,10 @@ module "eks" {
 
       update_config = {
         max_unavailable_percentage = 80 # or set `max_unavailable`
+      }
+
+      tags = {
+        environment = "${var.env}"
       }
     }
   }
@@ -116,3 +119,5 @@ data "aws_eks_cluster_auth" "cluster" {
 
 data "aws_availability_zones" "available" {
 }
+
+

@@ -92,20 +92,6 @@ variable "eks_aws_auth_configmap_users" {
   default     = []
 }
 
-variable "eks_managed_node_groups_options" {
-  description = "An object variable containing key-value pairs for the eks_managed_node_groups parameters."
-  type = object({
-    min_size     = number
-    max_size     = number
-    desired_size = number
-  })
-  default = {
-    min_size     = 3
-    max_size     = 5
-    desired_size = 3
-  }
-}
-
 variable "create_logs_bucket" {
   description = "Flag to create an S3 bucket or not."
   type        = bool
@@ -127,29 +113,23 @@ variable "addon_ebs_csi_driver" {
   default     = {}
 }
 
-# https://github.com/terraform-aws-modules/terraform-aws-eks/issues/1904
-variable "cluster_iam_role_dns_suffix" {
-  description = "Base DNS domain name for the current partition (e.g., amazonaws.com in AWS Commercial, amazonaws.com.cn in AWS China)"
-  type        = string
-  default     = null
-}
-
-variable "overwrite_image_variables" {
-  description = "A map of objects containing key-value pairs to overwrite the default image variables - registry, repository and tag. Each key-value is optional. The default value is used if omit."
-
-  # Example:
-  # custom_container_images = {
-  #   external-dns = {
-  #     registry   = "public.ecr.aws"
-  #     repository = "external-dns"
-  #     tag        = "0.15.0-debian-12-r2"
-  #   }
-  # }
-
-  type        = map(any)
+variable "addon_vpc_cni_driver" {
+  description = "Install Amazon VPC CNI driver add-on. Require for EKS cluster version 1.25 and above. For content, refer to 'aws_eks_addon' Terraform resource."
+  type        = map(string)
   default     = {}
 }
 
+variable "addon_coredns_driver" {
+  description = "Install Core DNS driver add-on. Require for EKS cluster version 1.25 and above. For content, refer to 'aws_eks_addon' Terraform resource."
+  type        = map(string)
+  default     = {}
+}
+
+variable "addon_kube_proxy_driver" {
+  description = "Install Kube Proxy driver add-on. Require for EKS cluster version 1.25 and above. For content, refer to 'aws_eks_addon' Terraform resource."
+  type        = map(string)
+  default     = {}
+}
 
 locals {
   eks_cluster_name       = "${var.module_prefix}-cluster"

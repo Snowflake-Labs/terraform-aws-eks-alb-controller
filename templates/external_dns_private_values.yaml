@@ -18,16 +18,3 @@ serviceAccount:
 zoneIdFilters: ["${aws_private_hosted_zone}"]
 annotationFilter: "alb.ingress.kubernetes.io/scheme=internal"
 txtOwnerId: ${eks_cluster_id}
-
-%{ if anytrue([image_registry != null, image_repository != null, image_tag != null]) ~}
-image:
-%{ if image_registry != null ~}
-  registry: ${image_registry}
-%{ endif ~}
-%{ if image_repository != null ~}
-  repository: ${image_repository}
-%{ endif ~}
-%{ if image_tag != null ~}
-  tag: ${image_tag}
-%{ endif ~}
-%{ endif ~}
