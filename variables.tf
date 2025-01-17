@@ -127,6 +127,12 @@ variable "addon_ebs_csi_driver" {
   default     = {}
 }
 
+variable "addon_eks_pod_identity_agent" {
+  description = "Install AWS EKS Pod Identity Agent on the EKS cluster. Require Kubernetes version 1.24 and above. For content, refer to 'aws_eks_addon' Terraform resource."
+  type        = map(string)
+  default     = {}
+}
+
 # https://github.com/terraform-aws-modules/terraform-aws-eks/issues/1904
 variable "cluster_iam_role_dns_suffix" {
   description = "Base DNS domain name for the current partition (e.g., amazonaws.com in AWS Commercial, amazonaws.com.cn in AWS China)"
