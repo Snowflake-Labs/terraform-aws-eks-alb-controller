@@ -133,6 +133,24 @@ variable "addon_eks_pod_identity_agent" {
   default     = {}
 }
 
+variable "addon_vpc_cni_driver" {
+  description = "Install Amazon VPC CNI driver add-on. Require for EKS cluster version 1.25 and above. For content, refer to 'aws_eks_addon' Terraform resource."
+  type        = map(string)
+  default     = {}
+}
+
+variable "addon_coredns_driver" {
+  description = "Install Core DNS driver add-on. Require for EKS cluster version 1.25 and above. For content, refer to 'aws_eks_addon' Terraform resource."
+  type        = map(string)
+  default     = {}
+}
+
+variable "addon_kube_proxy_driver" {
+  description = "Install Kube Proxy driver add-on. Require for EKS cluster version 1.25 and above. For content, refer to 'aws_eks_addon' Terraform resource."
+  type        = map(string)
+  default     = {}
+}
+
 # https://github.com/terraform-aws-modules/terraform-aws-eks/issues/1904
 variable "cluster_iam_role_dns_suffix" {
   description = "Base DNS domain name for the current partition (e.g., amazonaws.com in AWS Commercial, amazonaws.com.cn in AWS China)"
