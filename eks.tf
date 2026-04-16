@@ -2,6 +2,8 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "18.31.2"
 
+  tags = local.module_tags
+
   cluster_name                         = local.eks_cluster_name
   cluster_version                      = var.kubernetes_version
   cluster_endpoint_private_access      = true
@@ -27,7 +29,7 @@ module "eks" {
   cloudwatch_log_group_retention_in_days = 0
 
   eks_managed_node_group_defaults = {
-    ami_type       = "AL2_x86_64"
+    ami_type       = var.ami_type
     disk_size      = 50
     instance_types = ["m6i.large", "m5.large", "m5n.large", "m5zn.large"]
   }
@@ -45,8 +47,10 @@ module "eks" {
       }
 
       update_config = {
-        max_unavailable_percentage = 80 # or set `max_unavailable`
+        max_unavailable = 1
       }
+
+      tags = local.module_tags
     }
   }
 

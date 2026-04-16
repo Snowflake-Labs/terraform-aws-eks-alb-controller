@@ -174,9 +174,26 @@ variable "overwrite_image_variables" {
   default     = {}
 }
 
+variable "ami_type" {
+  description = "AMI type for EKS managed node group. Defaults to AL2023 (x86_64 standard). Override with AL2_x86_64 for legacy Amazon Linux 2."
+  type        = string
+  default     = "AL2023_x86_64_STANDARD"
+}
+
+variable "tags" {
+  description = "Additional tags to merge with module defaults (Terraform, Owner, Environment). Use to add extra tags or override module defaults."
+  type        = map(string)
+  default     = {}
+}
 
 locals {
   eks_cluster_name       = "${var.module_prefix}-cluster"
   public_hosted_zone_id  = var.aws_public_hosted_zone == null ? "" : var.aws_public_hosted_zone
   private_hosted_zone_id = var.aws_private_hosted_zone == null ? "" : var.aws_private_hosted_zone
+
+  module_tags = merge({
+    Terraform   = "true"
+    Owner       = "gse-spe"
+    Environment = var.env
+  }, var.tags)
 }
